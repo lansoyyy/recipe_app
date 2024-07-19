@@ -65,7 +65,9 @@ class _MyRecipeTabState extends State<MyRecipeTab> {
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const DetailsScreen()));
+                          builder: (context) => DetailsScreen(
+                                myrecipe: true,
+                              )));
                     },
                     child: Card(
                       child: SizedBox(

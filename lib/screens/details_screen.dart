@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/utils/colors.dart';
 import 'package:recipe_app/widgets/text_widget.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+class DetailsScreen extends StatefulWidget {
+  bool? myrecipe;
 
+  DetailsScreen({
+    super.key,
+    this.myrecipe = false,
+  });
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +50,23 @@ class DetailsScreen extends StatelessWidget {
                     fontSize: 32,
                     fontFamily: 'Bold',
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_border,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_border,
+                        ),
+                      ),
+                      widget.myrecipe!
+                          ? IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.delete,
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
                   ),
                 ],
               ),

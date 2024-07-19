@@ -65,7 +65,7 @@ class _HomeTabState extends State<HomeTab> {
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const DetailsScreen()));
+                          builder: (context) => DetailsScreen()));
                     },
                     child: Card(
                       child: SizedBox(
