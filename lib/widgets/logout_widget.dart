@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/screens/home_screen.dart';
+import 'package:recipe_app/screens/login_screen.dart';
 
 logout(BuildContext context, Widget navigationRoute) {
   return showDialog(
@@ -24,11 +26,9 @@ logout(BuildContext context, Widget navigationRoute) {
               ),
               MaterialButton(
                 onPressed: () async {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => navigationRoute),
-                    (route) {
-                      return false;
-                    },
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
                   );
                 },
                 child: const Text(
