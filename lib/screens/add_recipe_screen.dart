@@ -38,61 +38,73 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 40.0),
-            const Center(
-              child: Icon(
-                Icons.image,
-                size: 120.0,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            TextField(
-              controller: name,
-              decoration: const InputDecoration(
-                labelText: 'Recipe Name',
-                labelStyle: TextStyle(color: Colors.orange),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 40.0),
+              imageURL == ''
+                  ? const Center(
+                      child: Icon(
+                        Icons.image,
+                        size: 120.0,
+                        color: Colors.grey,
+                      ),
+                    )
+                  : SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: Image.network(imageURL),
+                    ),
+              const SizedBox(height: 20.0),
+              TextField(
+                controller: name,
+                decoration: const InputDecoration(
+                  labelText: 'Recipe Name',
+                  labelStyle: TextStyle(color: Colors.orange),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.orange),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.orange),
+                  ),
                 ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+              ),
+              const SizedBox(height: 10.0),
+              TextField(
+                controller: desc,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
                 ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            TextField(
-              controller: desc,
-              decoration: const InputDecoration(
-                labelText: 'Description',
+              const SizedBox(height: 10.0),
+              TextField(
+                controller: cooktime,
+                decoration: const InputDecoration(
+                  labelText: 'Cook Time',
+                ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            TextField(
-              controller: cooktime,
-              decoration: const InputDecoration(
-                labelText: 'Cook Time',
+              const SizedBox(height: 30.0),
+              ButtonWidget(
+                radius: 5,
+                label: 'Select Image',
+                onPressed: () {
+                  uploadPicture('gallery');
+                },
               ),
-            ),
-            const SizedBox(height: 30.0),
-            ButtonWidget(
-              radius: 5,
-              label: 'Select Image',
-              onPressed: () {},
-            ),
-            const SizedBox(height: 20.0),
-            ButtonWidget(
-              radius: 5,
-              label: 'Upload Recipe',
-              onPressed: () {
-                addRecipe(name.text, desc.text, cooktime.text, '');
-              },
-            ),
-            const SizedBox(height: 20.0),
-          ],
+              const SizedBox(height: 20.0),
+              ButtonWidget(
+                radius: 5,
+                label: 'Upload Recipe',
+                onPressed: () {
+                  addRecipe(name.text, desc.text, cooktime.text, imageURL);
+                  Navigator.pop(context);
+                  showToast('Recipe added succesfully!');
+                },
+              ),
+              const SizedBox(height: 20.0),
+            ],
+          ),
         ),
       ),
     );
