@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/screens/add_recipe_screen.dart';
 import 'package:recipe_app/screens/login_screen.dart';
+import 'package:recipe_app/screens/tabs/favorites_tab.dart';
 import 'package:recipe_app/screens/tabs/home_tab.dart';
+import 'package:recipe_app/screens/tabs/my_recipe_tab.dart';
 import 'package:recipe_app/utils/colors.dart';
 import 'package:recipe_app/widgets/logout_widget.dart';
 import 'package:recipe_app/widgets/text_widget.dart';
@@ -17,10 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeTab(),
-    const Text('My Recipe',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    const Text('Favorites',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    const MyRecipeTab(),
+    const FavoritesTab(),
     const Text('Profile',
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];
@@ -36,6 +37,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _selectedIndex == 1
+          ? FloatingActionButton(
+              backgroundColor: primary,
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddRecipeScreen()));
+              },
+            )
+          : null,
       appBar: AppBar(
         backgroundColor: primary,
         title: TextWidget(

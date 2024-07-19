@@ -4,14 +4,14 @@ import 'package:recipe_app/screens/details_screen.dart';
 import 'package:recipe_app/utils/colors.dart';
 import 'package:recipe_app/widgets/text_widget.dart';
 
-class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+class MyRecipeTab extends StatefulWidget {
+  const MyRecipeTab({super.key});
 
   @override
-  State<HomeTab> createState() => _HomeTabState();
+  State<MyRecipeTab> createState() => _MyRecipeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _MyRecipeTabState extends State<MyRecipeTab> {
   final searchController = TextEditingController();
   String nameSearched = '';
 
