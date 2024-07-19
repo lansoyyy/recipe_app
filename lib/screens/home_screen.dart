@@ -4,6 +4,7 @@ import 'package:recipe_app/screens/login_screen.dart';
 import 'package:recipe_app/screens/tabs/favorites_tab.dart';
 import 'package:recipe_app/screens/tabs/home_tab.dart';
 import 'package:recipe_app/screens/tabs/my_recipe_tab.dart';
+import 'package:recipe_app/screens/tabs/profile_tab.dart';
 import 'package:recipe_app/utils/colors.dart';
 import 'package:recipe_app/widgets/logout_widget.dart';
 import 'package:recipe_app/widgets/text_widget.dart';
@@ -22,8 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeTab(),
     const MyRecipeTab(),
     const FavoritesTab(),
-    const Text('Profile',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    const ProfileTab(),
   ];
 
   void _onItemTapped(int index) {
