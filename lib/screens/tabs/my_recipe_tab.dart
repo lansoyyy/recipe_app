@@ -97,6 +97,7 @@ class _MyRecipeTabState extends State<MyRecipeTab> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetailsScreen(
+                                      myrecipe: true,
                                       id: data.docs[index].id,
                                     )));
                           },
