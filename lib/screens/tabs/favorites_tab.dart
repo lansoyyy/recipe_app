@@ -77,122 +77,129 @@ class _FavoritesTabState extends State<FavoritesTab> {
                     ),
                   ),
                 ),
-                StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('Recipe')
-                        .where('id', arrayContains: mydata['favs'])
-                        .where('name',
-                            isGreaterThanOrEqualTo:
-                                toBeginningOfSentenceCase(nameSearched))
-                        .where('name',
-                            isLessThan:
-                                '${toBeginningOfSentenceCase(nameSearched)}z')
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        print(snapshot.error);
-                        return const Center(child: Text('Error'));
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 50),
-                          child: Center(
-                              child: CircularProgressIndicator(
-                            color: Colors.black,
-                          )),
-                        );
-                      }
+                mydata['favs'].isEmpty
+                    ? const SizedBox()
+                    : StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('Recipe')
+                            .where('id', whereIn: mydata['favs'])
+                            .where('name',
+                                isGreaterThanOrEqualTo:
+                                    toBeginningOfSentenceCase(nameSearched))
+                            .where('name',
+                                isLessThan:
+                                    '${toBeginningOfSentenceCase(nameSearched)}z')
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            print(snapshot.error);
+                            return const Center(child: Text('Error'));
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 50),
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                color: Colors.black,
+                              )),
+                            );
+                          }
 
-                      final data = snapshot.requireData;
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: data.docs.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(
-                                            id: data.docs[index].id,
-                                          )));
-                                },
-                                child: Card(
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 175,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          height: 125,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                    data.docs[index]['image'])),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(
-                                                10,
-                                              ),
-                                              topRight: Radius.circular(
-                                                10,
+                          final data = snapshot.requireData;
+                          return Expanded(
+                            child: ListView.builder(
+                              itemCount: data.docs.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailsScreen(
+                                                    id: data.docs[index].id,
+                                                  )));
+                                    },
+                                    child: Card(
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 175,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              height: 125,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(data
+                                                        .docs[index]['image'])),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                    10,
+                                                  ),
+                                                  topRight: Radius.circular(
+                                                    10,
+                                                  ),
+                                                ),
+                                                color: Colors.grey,
                                               ),
                                             ),
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, right: 20),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20, right: 20),
+                                              child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      TextWidget(
+                                                        text: data.docs[index]
+                                                            ['name'],
+                                                        fontSize: 18,
+                                                        fontFamily: 'Bold',
+                                                        color: primary,
+                                                      ),
+                                                      TextWidget(
+                                                        text: data.docs[index]
+                                                            ['desc'],
+                                                        fontSize: 12,
+                                                        fontFamily: 'Regular',
+                                                      ),
+                                                    ],
+                                                  ),
                                                   TextWidget(
                                                     text: data.docs[index]
-                                                        ['name'],
-                                                    fontSize: 18,
+                                                        ['cooktime'],
+                                                    fontSize: 28,
                                                     fontFamily: 'Bold',
                                                     color: primary,
                                                   ),
-                                                  TextWidget(
-                                                    text: data.docs[index]
-                                                        ['desc'],
-                                                    fontSize: 12,
-                                                    fontFamily: 'Regular',
-                                                  ),
                                                 ],
                                               ),
-                                              TextWidget(
-                                                text: data.docs[index]
-                                                    ['cooktime'],
-                                                fontSize: 28,
-                                                fontFamily: 'Bold',
-                                                color: primary,
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    })
+                                );
+                              },
+                            ),
+                          );
+                        })
               ],
             ),
           );
