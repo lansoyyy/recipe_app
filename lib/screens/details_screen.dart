@@ -4,9 +4,11 @@ import 'package:recipe_app/widgets/text_widget.dart';
 
 class DetailsScreen extends StatefulWidget {
   bool? myrecipe;
+  String id;
 
   DetailsScreen({
     super.key,
+    required this.id,
     this.myrecipe = false,
   });
 
