@@ -82,10 +82,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextWidget(
-                                  text: data['name'],
-                                  fontSize: 32,
-                                  fontFamily: 'Bold',
+                                SizedBox(
+                                  width: 225,
+                                  child: TextWidget(
+                                    align: TextAlign.start,
+                                    text: data['name'],
+                                    fontSize: 32,
+                                    fontFamily: 'Bold',
+                                  ),
                                 ),
                                 Row(
                                   children: [
