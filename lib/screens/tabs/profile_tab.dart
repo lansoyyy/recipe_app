@@ -51,11 +51,16 @@ class _ProfileTabState extends State<ProfileTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Center(
-                    child: Icon(
-                      Icons.account_circle,
-                      color: primary,
-                      size: 150,
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        uploadPicture('gallery');
+                      },
+                      child: CircleAvatar(
+                        minRadius: 75,
+                        maxRadius: 75,
+                        backgroundImage: NetworkImage(data['profile']),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -214,7 +219,7 @@ class _ProfileTabState extends State<ProfileTab> {
             .collection('Users')
             .doc(userId)
             .update({
-          'pic': imageURL,
+          'profile': imageURL,
         });
 
         setState(() {});
